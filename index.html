@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shift Your Space – SKAPA by IKEA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="app-logo" aria-label="SKAPA by IKEA">
+      <svg viewBox="0 0 64 24" aria-hidden="true" focusable="false">
+        <rect x="1" y="1" width="62" height="22" rx="11" class="logo-outer" />
+        <rect x="6" y="6" width="52" height="12" rx="6" class="logo-inner" />
+        <text x="32" y="15" text-anchor="middle" class="logo-text">SKAPA</text>
+      </svg>
+    </div>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
+      <span class="sr-only">Toggle theme</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"></circle>
+        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+      </svg>
+    </button>
+  </header>
+
+  <main class="app-main">
+    <!-- Start Screen -->
+    <section id="screen-start" class="screen screen--active" aria-labelledby="start-title">
+      <div class="card card--centered">
+        <h1 id="start-title" class="title">Shift Your Space</h1>
+        <p class="lead">Can you optimise this tiny studio before SKAPA does?</p>
+        <p class="body">Drag and drop IKEA-inspired furniture to make a small space feel more open, functional and comfortable — then see how SKAPA would arrange it.</p>
+        <button id="btn-start" class="btn btn-primary">Start challenge</button>
+        <button id="btn-about" class="btn btn-ghost">What is SKAPA?</button>
+      </div>
+    </section>
+
+    <!-- Brief Screen -->
+    <section id="screen-brief" class="screen" aria-labelledby="brief-title">
+      <div class="card card--split">
+        <div class="card-col">
+          <h2 id="brief-title" class="title-sm">Your 60-second small space challenge</h2>
+          <p class="body">You have 60 seconds to make this compact studio feel more functional and comfortable. Move furniture to free up walking space, reduce clutter and create clear zones for sleeping, working and relaxing.</p>
+          <ul class="hint-list">
+            <li>Avoid blocking the door and main walkway.</li>
+            <li>Use walls and corners for storage and desks.</li>
+            <li>Keep the centre of the room as open as you can.</li>
+          </ul>
+          <div class="actions-row">
+            <button id="btn-brief-back" class="btn btn-ghost">Back</button>
+            <button id="btn-begin-play" class="btn btn-primary">Start timer & arrange room</button>
+          </div>
+        </div>
+        <div class="card-col">
+          <h3 class="subtitle">Room preview</h3>
+          <div class="room-preview">
+            <div class="room-grid room-grid--preview"></div>
+            <p class="caption">A small studio with an inefficient layout. You are about to improve it.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game Screen -->
+    <section id="screen-game" class="screen" aria-labelledby="game-title">
+      <div class="screen-header">
+        <div>
+          <h2 id="game-title" class="title-sm">Arrange your space</h2>
+          <p class="body-sm">Drag furniture to improve flow and comfort before the timer runs out.</p>
+        </div>
+        <div class="status-bar">
+          <div class="timer" aria-live="polite">Time left: <span id="timer-value">60</span>s</div>
+          <button id="btn-finish-early" class="btn btn-secondary" disabled>Finish early</button>
+        </div>
+      </div>
+      <div class="game-layout">
+        <div class="room-wrapper">
+          <div class="room-label">Your layout</div>
+          <div id="room-user" class="room-grid" aria-label="Interactive room layout"></div>
+          <p class="caption">Tip: keep paths to the door, desk and bed as clear as possible.</p>
+        </div>
+        <aside class="hint-panel">
+          <h3 class="subtitle">Furniture in this room</h3>
+          <ul id="furniture-list" class="furniture-list"></ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Reveal Screen -->
+    <section id="screen-reveal" class="screen" aria-labelledby="reveal-title">
+      <div class="card card--centered card--narrow">
+        <h2 id="reveal-title" class="title-sm">SKAPA is analysing your room</h2>
+        <p class="body">We are using SKAPA to find a layout that opens up space, improves movement and balances comfort, storage and function.</p>
+        <div class="skapa-progress">
+          <div class="skapa-progress-bar"></div>
+        </div>
+        <button id="btn-show-compare" class="btn btn-primary">See SKAPA's layout</button>
+      </div>
+    </section>
+
+    <!-- Comparison Screen -->
+    <section id="screen-compare" class="screen" aria-labelledby="compare-title">
+      <div class="screen-header">
+        <div>
+          <h2 id="compare-title" class="title-sm">Compare your layout with SKAPA</h2>
+          <p class="body-sm">See how your arrangement stacks up against an AI-optimised version of the same room.</p>
+        </div>
+      </div>
+      <div class="compare-layout">
+        <div class="room-wrapper">
+          <div class="room-label">Your layout</div>
+          <div id="room-user-final" class="room-grid room-grid--readonly" aria-hidden="true"></div>
+        </div>
+        <div class="room-wrapper">
+          <div class="room-label room-label--accent">SKAPA layout</div>
+          <div id="room-skapa" class="room-grid room-grid--readonly" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="score-panel">
+        <div class="score-row">
+          <div class="score-block">
+            <span class="score-label">Space efficiency</span>
+            <span id="score-space" class="score-value">–</span>
+          </div>
+          <div class="score-block">
+            <span class="score-label">Functionality</span>
+            <span id="score-function" class="score-value">–</span>
+          </div>
+          <div class="score-block">
+            <span class="score-label">Comfort & flow</span>
+            <span id="score-comfort" class="score-value">–</span>
+          </div>
+          <div class="score-block">
+            <span class="score-label">Time bonus</span>
+            <span id="score-time" class="score-value">–</span>
+          </div>
+        </div>
+        <div class="score-row score-row--total">
+          <div class="score-total">
+            <span class="score-label">Your total</span>
+            <span id="score-total" class="score-value score-value--em">–</span>
+          </div>
+          <div class="score-total score-total--skapa">
+            <span class="score-label">SKAPA score</span>
+            <span id="score-skapa" class="score-value score-value--em">–</span>
+          </div>
+        </div>
+        <p id="feedback-text" class="body"></p>
+      </div>
+      <div class="insights">
+        <h3 class="subtitle">What SKAPA changed</h3>
+        <ul id="skapa-insights" class="insights-list"></ul>
+      </div>
+      <div class="actions-row actions-row--end">
+        <button id="btn-replay" class="btn btn-ghost">Try challenge again</button>
+        <button id="btn-next" class="btn btn-primary">See what SKAPA can do with my room</button>
+      </div>
+    </section>
+
+    <!-- Next Action Screen -->
+    <section id="screen-next" class="screen" aria-labelledby="next-title">
+      <div class="card card--split card--stack">
+        <div class="card-col">
+          <h2 id="next-title" class="title-sm">Try SKAPA on your real space</h2>
+          <p class="body">Upload a couple of photos or a quick sketch of your room and get a personalised SKAPA layout suggestion for your actual space.</p>
+          <form class="skapa-form" onsubmit="return false;">
+            <label class="form-field">
+              <span class="form-label">Email</span>
+              <input type="email" placeholder="you@example.com" required />
+            </label>
+            <label class="form-field">
+              <span class="form-label">Upload room photos (concept)</span>
+              <input type="file" multiple accept="image/*" />
+            </label>
+            <p class="caption">In a full SKAPA experience, these photos would be analysed to generate an optimised layout for your home.</p>
+            <button class="btn btn-primary" type="submit">Send me a SKAPA suggestion</button>
+          </form>
+        </div>
+        <div class="card-col">
+          <h3 class="subtitle">Thanks for playing</h3>
+          <p class="body">Small-space living is harder than it looks. SKAPA helps you live big in a small footprint by turning manual trial-and-error into intelligent optimisation.</p>
+          <div class="pill pill--muted">Concept prototype – no data is actually sent.</div>
+          <button id="btn-play-again" class="btn btn-secondary">Play again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
